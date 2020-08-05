@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+}
+
+html, body {
+    background: #fff;
+}
+
+video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+table {
+    margin: 100px auto;
+    width: 50%;
+}
+
+table, th, td {
+    border-collapse: collapse;
+    white-space: nowrap;
+}
+
+.table-header {
+    border-bottom: 1.5px solid rgb(17, 17, 17);
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    /**background: rgb(255, 69, 0);**/
+    background: rgb(43, 160, 255);
+    color: #FFF;
+}
+
+.even {
+    background: #fff;
+}
+
+.odd {
+    background: rgb(248, 246, 246);
+}
+
+.buttons button {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*
+    STYLE CLASSES
+*/
+
+.btn {
+    color: #FFF;
+    background: rgb(30, 121, 233);
+    padding: 6px 22px;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all .4s;
+}
+
+.btn:hover {
+    background: rgb(20, 96, 189);
+}
+
+.btn:disabled {
+    color: #FFF;
+    background: rgb(129, 129, 131);
+}
+
+.btn.large {
+    min-width: 325px;
+}
+
+.btn.medium {
+    min-width: 10%;
+}
+
+.btn.small {
+    min-width: 5%;
+}
+
+.field {
+    padding: 6px 22px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    cursor: text;
+    transition: all .4s;
+    text-align: left;
+}
+
+.field:hover {
+    background: #eee;
+}
+
+.field:disabled {
+    color: #000;
+}
+
+.field.large {
+    min-width: 280px;
+}
+
+.field.medium {
+    min-width: 10%;
+}
+
+.field.small {
+    min-width: 5%;
+}
+
+.form input {
+    display: block;
+    margin-top: 10px;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+required {
+    color: red;
+}
+
+.note {
+    font-size: 14px;
+    color: rgb(155, 153, 153);
+}
+
+.center {
+    text-align: center;
+}
+
+.vertical-center {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.horizontal-center {
+    position: absolute;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.align-right {
+    float: right;
+}
+
+.align-left {
+    float: left;
+}
+
+.clickable {
+    color: blue;
+    text-decoration: underline blue;
+    cursor: pointer;
+}
+
+.hoverable {
+    cursor: pointer;
+}
+
+.tag {
+    padding: 1px 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 12px;
+    border-radius: 3px;
+}
+
+.tag.red {
+    color: #FFF;
+    background: #db0000;
+    border-color: #db0000;
+}
+
+.tag.green {
+    color: #FFF;
+    background: #04b404;
+    border-color: #04b404;
+}
+
+.tag.orange {
+    color: #FFF;
+    background: #dba100;
+    border-color: #dba100;
+}
+
+.tag.blank {
+    color: #000;
+    background: #f1f1f1;
+    border-color: #f1f1f1;
+}
