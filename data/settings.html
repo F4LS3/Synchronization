@@ -6,26 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
     <link rel="stylesheet" href="/style.css">
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>-->
 </head>
 
 <body>
 
     <center>
-        <table>
-            <tr class="table-header">
-                <th>Frame</th>
-                <th style="color: rgb(43, 160, 255);">_</th>
-                <th>Video</th>
-                <th>Status</th>
-            </tr>
-        </table>
+        <form action="/flash" method="POST">
+            <table>
+                <tr class="table-header">
+                    <th>Frame</th>
+                    <th style="color: rgb(43, 160, 255);">_</th>
+                    <th>Video</th>
+                    <th>Status</th>
+                </tr>
+            </table>
 
-        
-
-        <div class="buttons">
-            <button type="button" class="btn medium" id="submit">&Uuml;bernehmen</button>
-            <button type="button" class="btn medium" id="reload">Aktualisieren</button>
-        </div>
+            <div class="buttons">
+                <button type="button" class="btn medium" id="submit">&Uuml;bernehmen</button>
+                <button type="button" class="btn medium" id="reload">Aktualisieren</button>
+            </div>
+        </form>
     </center>
 
     <script src="/settings.js"></script>

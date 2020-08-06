@@ -1,17 +1,60 @@
 {
-    "defaultGroup": "vid2",
-    "frames": [
-        { "ip": "192.168.145.70", "name": "FRAME-01", "group": "vid" },
-        { "ip": "192.168.145.64", "name": "FRAME-02", "group": "vid" },
-        { "ip": "192.168.145.66", "name": "FRAME-03", "group": "vid" },
-        { "ip": "192.168.145.69", "name": "FRAME-04", "group": "vid" },
-        { "ip": "192.168.145.12", "name": "FRAME-05", "group": "vid" },
-        { "ip": "192.168.145.19", "name": "FRAME-06", "group": "vid" },
-        { "ip": "192.168.145.38", "name": "FRAME-07", "group": "vid" },
-        { "ip": "192.168.145.67", "name": "FRAME-08", "group": "vid" },
-        { "ip": "192.168.145.68", "name": "FRAME-09", "group": "vid" },
-        { "ip": "127.0.0.1", "name": "LOCALHOST", "group": "vid" },
-        { "ip": "192.168.0.176", "name": "PC", "group": "vid" },
-        { "ip": "192.168.0.114", "name": "LAPTOP", "group": "vid2" }
-    ]
+  "frames": [
+    {
+      "name": "FRAME-01",
+      "group": "vid2",
+      "ip": "192.168.145.70"
+    },
+    {
+      "name": "FRAME-02",
+      "group": "vid",
+      "ip": "192.168.145.64"
+    },
+    {
+      "name": "FRAME-03",
+      "group": "vid",
+      "ip": "192.168.145.66"
+    },
+    {
+      "name": "FRAME-04",
+      "group": "vid",
+      "ip": "192.168.145.69"
+    },
+    {
+      "name": "FRAME-05",
+      "group": "vid",
+      "ip": "192.168.145.12"
+    },
+    {
+      "name": "FRAME-06",
+      "group": "vid",
+      "ip": "192.168.145.19"
+    },
+    {
+      "name": "FRAME-07",
+      "group": "vid",
+      "ip": "192.168.145.38"
+    },
+    {
+      "name": "FRAME-08",
+      "group": "vid",
+      "ip": "192.168.145.67"
+    },
+    {
+      "name": "FRAME-09",
+      "group": "vid",
+      "ip": "192.168.145.68"
+    },
+    {
+      "name": "PC",
+      "group": "vid2",
+      "ip": "192.168.0.176"
+    },
+    {
+      "name": "LAPTOP",
+      "group": "vid",
+      "ip": "192.168.0.114"
+    }
+  ],
+  "defaultGroup": "vid"
 }
