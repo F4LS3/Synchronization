@@ -37,5 +37,8 @@ socket.on('demand', demand => {
 
     } else if (args[0] == "time") {
         video.currentTime = parseInt(args[1]);
+    
+    } else if(args[0] == "reload") {
+        location.reload();
     }
 });

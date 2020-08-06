@@ -15,10 +15,18 @@ document.querySelector("#submit").addEventListener('click', () => {
         let selectedGroup = selectedVideo.split(".")[0];
         data.push({ name: name, group: selectedGroup });
     });
-    const socket = io('192.168.0.176:30001/flush', { forceNew: true });
-
-
-    //location.reload();
+    console.log(JSON.stringify(data));
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    };
+    fetch('/flash', options).then(res => {
+        console.log(res);
+        location.reload();
+    });
 });
 
 window.onload = () => {
