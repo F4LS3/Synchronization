@@ -27,8 +27,6 @@ const asyncForEach = async (array, callback) => {
 async function loadGroups() {
     const files = await fsp.readdir(`${__dirname}/data`);
 
-    const groups = []
-
     await asyncForEach(files, async file => {
 
         if (file.endsWith(".mp4")) {
