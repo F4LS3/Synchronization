@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
+    <title>Einstellungen</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="/style.css">
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>-->
+    <link rel="stylesheet" href="../public/style.css">
+    <script src="../public/settings.js" defer></script>
+    <script src="/settings.js" defer></script>
 </head>
 
 <body>
@@ -19,17 +22,21 @@
                     <th style="color: rgb(43, 160, 255);">_</th>
                     <th>Video</th>
                     <th>Status</th>
+                    <th style="color: rgb(43, 160, 255);">_</th>
                 </tr>
             </table>
 
             <div class="buttons">
-                <button type="button" class="btn medium" id="submit">&Uuml;bernehmen</button>
-                <button type="button" class="btn medium" id="reload">Aktualisieren</button>
+                <button type="button" class="btn" id="submit"><span class="material-icons">done</span></button>
+                <button type="button" class="btn" id="reload"><span class="material-icons">refresh</span></button>
+                <button type="button" class="btn" id="upload"><span class="material-icons">upload_file</span></button>
             </div>
         </form>
+        
+        <form action="/upload" id="upload-form" method="POST" enctype="multipart/form-data">
+            <input type="file" id="upload-input" name="upload" multiple style="width: 0.1px; height: 0.1px; opacity: 0; overflow: hidden; position: absolute; z-index: -1;">
+        </form>
     </center>
-
-    <script src="/settings.js"></script>
 </body>
 
 </html>

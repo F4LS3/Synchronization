@@ -71,6 +71,7 @@ table th {
 */
 
 .btn {
+    vertical-align: middle;
     color: #FFF;
     background: rgb(30, 121, 233);
     padding: 6px 22px;
@@ -219,4 +220,16 @@ required {
     color: #000;
     background: #f1f1f1;
     border-color: #f1f1f1;
+}
+
+.black {
+    color: #000;
+}
+
+.refresh {
+    cursor: pointer;
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }

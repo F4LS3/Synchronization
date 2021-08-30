@@ -3,20 +3,20 @@ console.clear();
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const bodyParser = require('body-parser');
+const fileUpload = require("express-fileupload");
 const io = require('socket.io')(30001);
 console.log(`[INFO] Started communication on port 30001`);
 
 const Frame = require('./Frame.js');
 const Group = require('./Group.js');
-const { exec } = require('child_process');
-const { stderr } = require('process');
 
 let config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
 
 let groups = [], frames = [], registeredFrames = [];
 
 const fsp = require('fs').promises;
+const { exec } = require('child_process');
+const { stdout, stderr } = require('process');
 
 const asyncForEach = async (array, callback) => {
     for (let index = 0; index < array.length; index++) {
@@ -37,23 +37,13 @@ async function loadGroups() {
     });
 }
 
-async function getVideoDuration(video) {
-    const buff = Buffer.alloc(100);
-    const header = Buffer.from("mvhd");
-    const file = await fsp.open(video, "r");
-    const {
-        buffer
-    } = await file.read(buff, 0, 100, 0);
-
-    await file.close();
-
-    const start = buffer.indexOf(header) + 17;
-    const timeScale = buffer.readUInt32BE(start);
-    const duration = buffer.readUInt32BE(start + 4);
-
-    const audioLength = Math.floor((duration / timeScale) * 1000) / 1000;
-
-    return audioLength;
+async function getVideoDuration(file) {
+    let out;
+    exec('ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 ' + file, (err, stdout, stderr) => {
+        if(err || !stdout) return console.error(`[ERROR] ${err.message || stderr}`);
+        out = stdout;
+    });
+    return out;
 }
 
 function loadFrames() {
@@ -67,9 +57,8 @@ loadGroups();
 loadFrames();
 
 app.use(express.static('public'));
-app.use(bodyParser.json());
-
-var jsonParser = bodyParser.json();
+app.use(express.json());
+app.use(fileUpload());
 
 app.get('/videoDuration', (req, res) => {
     let url = req.url.substring(req.url.split("?")[0].length + 1);
@@ -84,10 +73,10 @@ app.get('/', (req, res) => {
 
 app.get('/video', (req, res) => {
     let frame = frames.find(f => f._ip === req.connection.remoteAddress.replace("::ffff:", ""));
+    console.log(frame);
     if (frame == null || frame._group == null) return res.sendStatus(400);
 
-    let videoName = frame._group + ".mp4";
-    res.sendFile(`${__dirname}/data/${videoName}`);
+    res.sendFile(`${__dirname}/data/${frame._group}.mp4`);
     console.log(`[INFO] Sent video from group '${frame._group}' to '${frame._id}'`);
 });
 
@@ -114,7 +103,7 @@ app.get('/frames', (req, res) => {
     res.status(200).send({ frames: fs2, actives: actives, masters: masters, groups: gs2 });
 });
 
-app.post('/flash', jsonParser, (req, res) => {
+app.post('/flash', (req, res) => {
     let body = JSON.parse(JSON.stringify(req.body));
     let json = {};
     body.forEach(f1 => {
@@ -135,10 +124,38 @@ app.post('/flash', jsonParser, (req, res) => {
     res.status(200).redirect("/settings");
 });
 
+app.post('/upload', (req, res) => {
+    try {
+        if(!req.files) return res.status(400).send({ status: 400, message: 'no files provided' });
+
+        console.log(req.files);
+
+        if(Array.isArray(req.files.upload)) {
+            req.files.upload.forEach(file => {
+                file.mv(`./data/${file.name}`, err => {
+                    if(err) return res.status(500).send({ status: 500, message: err.message })
+                });
+            });
+        } else {
+            req.files.upload.mv(`./data/${req.files.upload.name}`, err => {
+                if(err) return res.status(500).send({ status: 500, message: err.message });
+            });
+        }
+
+        groups = [];
+        loadGroups();
+
+        return res.status(200).redirect('/settings');
+
+    } catch(err) {
+        console.error(`[ERROR] ${err.message}`);
+    }
+});
+
 io.on('connection', socket => {
     let frame = new Frame(socket.id, socket.handshake.address.replace("::ffff:", ""), config.defaultGroup, socket);
     registeredFrames.forEach(f => {
-        if (f.ip == frame._ip) {
+        if (f.ip === frame._ip) {
             frame.setId(f.name);
             frame.setGroup(f.group);
         }
@@ -146,7 +163,7 @@ io.on('connection', socket => {
     let group = groups.find(g => g._name === frame._group);
     frames.push(frame);
 
-    if (group._master == null) {
+    if (group._master === null) {
         group.setMaster(frame._socket);
         console.log(`[INFO] Master of group '${group._name}' changed to '${frame._id}'`);
     } else {
@@ -178,7 +195,7 @@ io.on('connection', socket => {
 
 app.listen(30000, () => console.log(`[INFO] Started webserver on port 30000`));
 
-setInterval(function () {
+setInterval(() => {
     groups.forEach(g => {
         if (g._master == null) return;
         g._master.emit('sync', null);
@@ -193,4 +210,4 @@ setInterval(function () {
             }
         });
     });
-}, 500);
+}, 15000);

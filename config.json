@@ -48,12 +48,12 @@
     {
       "name": "PC",
       "group": "vid",
-      "ip": "192.168.0.176"
+      "ip": "::1"
     },
     {
       "name": "LAPTOP",
-      "group": "vid",
-      "ip": "192.168.0.114"
+      "group": "SIX_CONSOLES_VOCODED_TO_GANGSTAS_PARADISE",
+      "ip": "192.168.0.148"
     }
   ],
   "defaultGroup": "vid"

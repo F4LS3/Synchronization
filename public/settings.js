@@ -1,9 +1,19 @@
 const table = document.querySelector("table");
+const fileInput = document.querySelector("#upload-input");
 
 document.querySelector("#reload").addEventListener('click', () => {
-    table.innerHTML = `<tr class="table-header"><th>Frame</th><th style="color: rgb(43, 160, 255);">_</th><th>Video</th><th>Status</th></tr>`
-    loadData();
+    //table.innerHTML = `<tr class="table-header"><th>Frame</th><th style="color: rgb(43, 160, 255);">_</th><th>Video</th><th>Status</th></tr>`
+    //loadData();
+    window.location.reload();
 });
+
+document.querySelector("#upload").addEventListener('click', () => {
+    document.querySelector("#upload-input").click();
+});
+
+fileInput.onchange = () => {
+    document.querySelector("#upload-form").submit();
+};
 
 document.querySelector("#submit").addEventListener('click', () => {
     let data = [];
@@ -45,10 +55,10 @@ function loadData() {
             let groupFrameIsIn = groups.find(g => g.name === frame.group).name;
 
             if (counter == 0) {
-                table.insertAdjacentHTML("beforeend", `<tr class="even"><td>${frame.name}</td><td>${masters.includes(frame.name) ? "<a class='tag green'>Master der Gruppe '" + frame.group + "'</a>" : ""}</td><td><select name="video" id="${frame.name}"></select></td><td>${actives.includes(frame.name) ? "<a class='tag green'>Verbunden</a>" : "<a class='tag red'>Nicht Verbunden</a>"}</td></tr>`);
+                table.insertAdjacentHTML("beforeend", `<tr class="even"><td>${frame.name}</td><td>${masters.includes(frame.name) ? "<a class='tag green'>Master der Gruppe '" + frame.group + "'</a>" : ""}</td><td><select name="video" id="${frame.name}"></select></td><td>${actives.includes(frame.name) ? "<a class='tag green'>Verbunden</a>" : "<a class='tag red'>Nicht Verbunden</a>"}</td><td><span class="material-icons refresh">refresh</span></td></tr>`);
                 counter++;
             } else {
-                table.insertAdjacentHTML("beforeend", `<tr class="odd"><td>${frame.name}</td><td>${masters.includes(frame.name) ? "<a class='tag green'>Master der Gruppe '" + frame.group + "'</a>" : ""}</td><td><select name="video" id="${frame.name}"></select></td><td>${actives.includes(frame.name) ? "<a class='tag green'>Verbunden</a>" : "<a class='tag red'>Nicht Verbunden</a>"}</td></tr>`);
+                table.insertAdjacentHTML("beforeend", `<tr class="odd"><td>${frame.name}</td><td>${masters.includes(frame.name) ? "<a class='tag green'>Master der Gruppe '" + frame.group + "'</a>" : ""}</td><td><select name="video" id="${frame.name}"></select></td><td>${actives.includes(frame.name) ? "<a class='tag green'>Verbunden</a>" : "<a class='tag red'>Nicht Verbunden</a>"}</td><td><span class="material-icons refresh">refresh</span></td></tr>`);
                 counter = 0;
             }
 
@@ -59,5 +69,6 @@ function loadData() {
                 dropdown.insertAdjacentHTML("beforeend", `<option value="${g.name}.mp4">${g.name}.mp4</option>`);
             });
         });
-    });
+    })
+    .catch(err => alert(`[ERROR] ${err.message}`));
 }

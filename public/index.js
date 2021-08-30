@@ -1,4 +1,5 @@
-const socket = io.connect("192.168.0.176:30001", { reconnection: false });
+const socket = io.connect("localhost:30001", { reconnection: false });
+//const socket = io.connect("192.168.0.71:30001", { reconnection: false });
 const video = document.querySelector("video");
 
 let isMaster = false;

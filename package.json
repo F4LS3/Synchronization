@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
     "ffprobe": "^1.1.0",
     "get-video-duration": "^3.0.1",
     "node-video-duration": "^1.0.1",
